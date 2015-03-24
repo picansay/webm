@@ -14,3 +14,4 @@ def swagger_ui():
 
 from . import views
 from . import core
+from . import core_conn
