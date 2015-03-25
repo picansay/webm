@@ -10,6 +10,7 @@ ns = api.namespace('core', description='核心操作 API')
 
 parser = api.parser()
 parser.add_argument('ip_rules', type=str, required=True, help='IP范围', location='form')
+#parser.add_argument('ip_rules', type=str, action='append',required=True, help='IP范围', location='form')
 
 @ns.route('/version/', endpoint='version')
 class Version(Resource):

@@ -3,6 +3,8 @@
 import os,sys
 sys.path.append( "%s/scripts"%os.path.abspath('.'))
 
+reload(sys)
+sys.setdefaultencoding('utf8') 
 from flask import Flask
 
 from app import create_app

@@ -1,7 +1,10 @@
+#-*-coding:utf-8-*-
 
 from flask import render_template,request
 from . import api,Resource
+import werkzeug
 
+import log
 
 	
 @api.route('/my-resource/<id>', endpoint='my-resource')
@@ -14,6 +17,16 @@ class MyResource(Resource):
 		api.abort(403)
 
 
+ns = api.namespace('test', description='核心操作 API')
+file_parser = api.parser()
+file_parser.add_argument('enable_syn', type=werkzeug.datastructures.FileStorage, location='json')
+@ns.route('/fileupload', endpoint='fileupload')
+class TestFileUpLoad(Resource):
+	@api.doc(parser=file_parser)
+	def put(self):
+		args = file_parser.parse_args()
+                log.debug(args)
+                return {}
 #@api.route('/ipfilter/', endpoint='ipfilter')
 #@api.doc()
 #class IpFilter(Resource):
