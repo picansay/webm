@@ -238,8 +238,20 @@ class Enabledomain_rules(Resource):
 		args = domain_rules_parser.parse_args()
                 log.debug(args)
                 return put_domain_rules(args["domain_rules"])
+from opt_core_http import get_url_rules,put_url_rules
+url_rules_parser = api.parser()
+url_rules_parser.add_argument('url_rules', type=str, action='append',required=True, help='0 or 1', location='form')
+@ns.route('/url_rules', endpoint='url_rules')
+class Enableurl_rules(Resource):
+	def get(self):
+		'''ip filter get'''
+		return get_url_rules()
+	@api.doc(parser=url_rules_parser)
+	def post(self):
+		args = url_rules_parser.parse_args()
+                log.debug(args)
+                return put_url_rules(args["url_rules"])
 #TODO:domain_caches
-#TODO:domain_rules
 #TODO:url_caches
 #TODO:url_rules
 #TODO:illegal_keywords

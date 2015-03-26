@@ -113,3 +113,6 @@ class BlockPrompt(Resource):
 	def put(self):
 		args = prompt_parser.parse_args()
                 return put_block_prompt(args["block_prompt"])
+
+
+#TODO:lock

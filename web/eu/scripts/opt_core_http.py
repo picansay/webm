@@ -404,7 +404,43 @@ def put_domain_rules(domain_rules):
                         write_to_proc("/proc/knstat/http/domain_rules",rule) 
                         domain_rules_dic[domain]=opt
         return domain_rules_dic
-#TODO:domain_rule
+url_rules_dic={}
+
+def get_url_rules():
+        if url_rules_dic:
+                return url_rules_dic
+        #rules = read_from_proc("/proc/knstat/http/url_rules",newline=True)
+        rules = open("/proc/knstat/http/url_rules").readlines()
+        log.debug(rules)
+        for rule in rules:
+                log.debug(rule)
+                opt,domain=rule.split(' ')
+                if domain.endswith('\n'):
+                        domain = domain[0:-1]
+                url_rules_dic[domain]=opt
+                
+        #url_rules_dic["url_rules"] = url_rules
+        return url_rules_dic
+
+def put_url_rules(url_rules):
+        if not url_rules_dic:
+                get_url_rules()
+        if url_rules == url_rules_dic.get("url_rules"):
+                return url_rules_dic
+
+        #write_block_to_proc(url_rules)
+        log.debug(url_rules)
+        for rule in url_rules:
+                log.debug(rule)
+                opt,domain=rule.split(' ')
+                if opt=='-':
+                        if url_rules_dic.has_key(domain):
+                                write_to_proc("/proc/knstat/http/url_rules",rule) 
+                                del url_rules_dic[domain]
+                else:
+                        write_to_proc("/proc/knstat/http/url_rules",rule) 
+                        url_rules_dic[domain]=opt
+        return url_rules_dic
 #TODO:domain_cache
 #TODO:url_rule
 #TODO:url_cache

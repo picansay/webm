@@ -8,6 +8,7 @@ def write_rule_to_core(rule):
                 f.write("%s\n" % rule)
 
 def get_ip_rules():
+        if()
         return ip_rules_dic
 
 def post_ip_rules(rules):
